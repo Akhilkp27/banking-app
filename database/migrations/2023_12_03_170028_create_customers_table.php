@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique();
-            $table->double('balance', 8, 2);
+            $table->double('balance', 8, 2)->default(0.00);
             $table->string('password');
             $table->timestamps();
         });

@@ -30,7 +30,8 @@ class CustomerController extends BaseController
     {
         $userIdFromSession = session('user_id');
         $customer = Customer::where('id', $userIdFromSession)->first();
-        $customerBalance = $customer->balance;
+        $customerBalance = number_format((float) $customer->balance, 2, '.', '');
+
         $customerEmail = $customer->email;
         $path = $this->getView('home');
         $para = ['customerBalance', 'customerEmail'];

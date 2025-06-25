@@ -23,8 +23,10 @@ class TransactionController extends BaseController
         $userEmailFromSession = session('user_email');
 
         $transaction = Transaction::where('customer_id', $userIdFromSession)->orWhere('transfer_to', $userEmailFromSession)->get();
+        $customer = Customer::where('id', $userIdFromSession)->first();
+        $customerBalance = number_format((float) $customer->balance, 2, '.', '');
         $path = $this->getView('statement');
-        $para = ['transaction', 'userEmailFromSession'];
+        $para = ['transaction', 'userEmailFromSession','customerBalance'];
         $title = 'Statement';
 
         return $this->renderView($path, compact($para), $title);

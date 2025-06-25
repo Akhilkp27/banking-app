@@ -16,22 +16,22 @@
         </thead>
         <tbody>
             @php
-                $i = 1; 
+                $i = 1;
                 $loggedUserEmail = session('user_email');
             @endphp
             @foreach ($transaction as $transactions)
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{ $transactions->created_at }}</td>
-                    <td>{{ $transactions->amount }}</td>           
+                    <td>&#8377; {{ number_format((float) $transactions->amount, 2, '.', '') }}</td>
                         @switch($transactions->transaction_details)
                             @case('Transfer')
                                 @if ($transactions->transfer_to === $loggedUserEmail)
                                     <td>Credit</td>
-                                    <td>Transfer from <br>{{ $transactions->transfer_from }}</td>                   
+                                    <td>Transfer from <br>{{ $transactions->transfer_from }}</td>
                                 @else
                                     <td>Debit</td>
-                                    <td>Transfer to <br>{{ $transactions->transfer_to }}</td>                       
+                                    <td>Transfer to <br>{{ $transactions->transfer_to }}</td>
                                 @endif
                             @break
                             @case('Deposit')
@@ -40,11 +40,11 @@
                             @break
                             @case('Withdraw')
                                     <td>Debit</td>
-                                    <td>Withdraw</td>              
-                            @break                   
-                            @default                           
-                        @endswitch   
-                    <td>{{ $transactions->balance }}</td>
+                                    <td>Withdraw</td>
+                            @break
+                            @default
+                        @endswitch
+                    <td>&#8377; {{ $customerBalance}}</td>
                 </tr>
                 @php
                     $i++;
